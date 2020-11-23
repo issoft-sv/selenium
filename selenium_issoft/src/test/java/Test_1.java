@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Test_1 {
     static WebDriver driver;
     public Test_1(){
-        System.setProperty("webdriver.chrome.driver", "d:\\Java\\issoft_github\\selenium\\selenium\\selenium_issoft\\drivers\\chromedriver.exe");
         driver = new ChromeDriver();
     }
     @AfterAll
@@ -20,10 +19,9 @@ public class Test_1 {
     }
     @Test
     public void testMethod(){
-
+        driver.get("https://www.tut.by/");
         driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
-
-        driver.findElement(By.xpath("//*[@id=\"authorize\"]/div/a")).click();
+        driver.findElement(By.xpath("//*[@id='authorize']/div/a")).click();
         driver.findElement(By.xpath("//input[@name='login']")).sendKeys("seleniumtests@tut.by");
         driver.findElement(By.xpath("//input[@name='password']")).sendKeys("123456789zxcvbn");
         driver.findElement(By.xpath("//input[@class='button m-green auth__enter']")).click();
