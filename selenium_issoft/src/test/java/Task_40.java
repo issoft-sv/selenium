@@ -18,7 +18,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Task_3 {
+public class Task_40 {
     private WebDriver driver;
     private WebDriverWait wait;
 
