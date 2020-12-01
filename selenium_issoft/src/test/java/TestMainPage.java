@@ -1,27 +1,26 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testng.Assert.assertEquals;
 
-@ExtendWith(Listener.class)
+@Listeners(Listener.class)
 public class TestMainPage {
-        protected static WebDriver driver;
+        private WebDriver driver;
         private WebDriverWait wait;
         private MainPage mainPage;
 
-        @BeforeEach
+        @BeforeTest
         public void start () {
-            driver = new ChromeDriver();
+            driver = Driver.getDriver();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             driver.manage().window().maximize();
@@ -30,14 +29,19 @@ public class TestMainPage {
             mainPage.makeMainPageScreenshot();
 
         }
-        @AfterEach
+        @AfterTest
         public void stop () {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             driver.quit();
             driver = null;
         }
 
         @Feature("Login")
-        @Description ("Verify user can login to the site")
+        @Description("Verify user can login to the site")
         @TestCaseId("1234")
         @Test
         public void signInTest () {
